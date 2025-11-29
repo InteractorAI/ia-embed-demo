@@ -44,10 +44,8 @@ window.addEventListener('load', () => {
             size: 22,
             background: 'rgb(10, 10, 10)',
             borders: {
-              inner: {
-                color: 'rgb(0, 0, 0)',
-                width: 1,
-              }
+
+
             },
             text: {
               top: {
@@ -63,7 +61,7 @@ window.addEventListener('load', () => {
                 value: 'CHAT NOW',
                 fontSize: 12,
                 lineHeight: 20,
-                color: 'lime',
+                color: 'white',
                 fontWeight: 'bold',
                 fontFamily: 'Inter, sans-serif',
                 textLength: 65,
