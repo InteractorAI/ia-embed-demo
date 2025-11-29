@@ -37,7 +37,7 @@ window.addEventListener('load', () => {
             duration: 10000,
           },
           container: {
-            background: 'rgb(10, 10, 10)',
+            background: 'rgba(0, 0, 0, 1)',
             size: 100,
           },
           ring: {
@@ -45,7 +45,7 @@ window.addEventListener('load', () => {
             background: 'rgb(10, 10, 10)',
             borders: {
               inner: {
-                color: 'rgba(255, 255, 255, 0.2)',
+                color: 'rgb(0, 0, 0)',
                 width: 1,
               }
             },
