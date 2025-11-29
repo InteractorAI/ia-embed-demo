@@ -43,6 +43,12 @@ window.addEventListener('load', () => {
           ring: {
             size: 22,
             background: 'rgb(10, 10, 10)',
+            borders: {
+              inner: {
+                color: 'rgba(255, 255, 255, 0.2)',
+                width: 1,
+              }
+            },
             text: {
               top: {
                 value: '24/7 AI CONCIERGE',
