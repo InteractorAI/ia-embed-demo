@@ -17,35 +17,50 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
 window.addEventListener('load', () => {
   if (window.interactor) {
     window.interactor.initialize('dave', {
-      type: 'mobile',
+      type: 'sidebar',
       isOpen: false,
       isFabVisible: true,
+      onOpen: (layout: any) => {
+        console.log('Chat opened', layout)
+      },
+      onClose: () => {
+        console.log('Chat closed')
+      },
       fabConfig: {
+        messageBubble: {
+          align: 'center-without-tail',
+        },
         wrapper: {
           shape: 'circle',
           animation: {
             type: 'spin',
             duration: 10000,
           },
+          container: {
+            background: 'rgb(10, 10, 10)',
+            size: 100,
+          },
           ring: {
+            size: 22,
+            background: 'rgb(10, 10, 10)',
             text: {
               top: {
                 value: '24/7 AI CONCIERGE',
-                fontSize: 14,
+                fontSize: 12,
                 lineHeight: 20,
                 color: 'white',
                 fontWeight: 'bold',
-                fontFamily: 'Montserrat, sans-serif',
-                textLength: 160,
+                fontFamily: 'Inter, sans-serif',
+                textLength: 120,
               },
               bottom: {
-                value: '24/7 AI CONCIERGE',
-                fontSize: 14,
+                value: 'CHAT NOW',
+                fontSize: 12,
                 lineHeight: 20,
-                color: 'white',
+                color: 'lime',
                 fontWeight: 'bold',
-                fontFamily: 'Montserrat, sans-serif',
-                textLength: 160,
+                fontFamily: 'Inter, sans-serif',
+                textLength: 65,
               },
             }
           },
