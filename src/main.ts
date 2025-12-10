@@ -90,6 +90,14 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
           </label>
         </div>
       </div>
+
+      <div style="text-align: left; margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.1);">
+        <label style="font-weight: 600; display: block; margin-bottom: 0.8rem;">Custom Triggers</label>
+        <div style="display: flex; gap: 0.8rem; flex-wrap: wrap;">
+          <button id="btn-open-chat" style="background-color: #4a5568;">Open Interactor</button>
+          <button id="btn-schedule" style="background-color: #4a5568;">Message Interactor</button>
+        </div>
+      </div>
     </div>
   </div>
 `
@@ -221,6 +229,34 @@ document.querySelectorAll('input[name="view-type"]').forEach(radio => {
   radio.addEventListener('change', handleRadioChange);
 });
 
+
 document.querySelectorAll('input[name="fab-style"]').forEach(radio => {
   radio.addEventListener('change', handleRadioChange);
+});
+
+// Custom Triggers Handlers
+// Custom Triggers Handlers
+document.getElementById('btn-open-chat')?.addEventListener('click', () => {
+  if (window.interactor) {
+    // Correct API: window.interactor.modal.open()
+    if (window.interactor.modal && typeof window.interactor.modal.open === 'function') {
+      window.interactor.modal.open();
+    } else {
+      console.log('Interactor API: modal.open() not found');
+    }
+  }
+});
+
+document.getElementById('btn-schedule')?.addEventListener('click', () => {
+  if (window.interactor) {
+    // Correct API: window.interactor.message.send()
+    // The send method automatically opens the chat by default, but we can be explicit if we want.
+    // window.interactor.modal.open(); 
+
+    if (window.interactor.message && typeof window.interactor.message.send === 'function') {
+      window.interactor.message.send("I'd like to schedule a call");
+    } else {
+      console.log('Interactor API: message.send() not found');
+    }
+  }
 });

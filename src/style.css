@@ -158,3 +158,36 @@ button.success {
 button.success:hover {
   background-color: #059669;
 }
+
+@media (max-width: 600px) {
+  #app {
+    padding: 1rem;
+  }
+
+  h1 {
+    font-size: 2em;
+  }
+
+  .card {
+    padding: 1.5rem;
+    margin: 1rem auto;
+  }
+
+  .view-options {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .input-group {
+    flex-direction: column;
+  }
+
+  input[type="text"] {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  button {
+    width: 100%;
+  }
+}
