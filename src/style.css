@@ -1,10 +1,13 @@
-:root {
+:root,
+html {
   font-family: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
+  background-color: #0f0c29;
+  /* Fallback for overscroll matching */
   background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
   background-attachment: fixed;
 
@@ -52,14 +55,17 @@ h1 {
 }
 
 .input-group {
-  display: flex;
-  gap: 0.5rem;
+  position: relative;
+  display: block;
   margin-bottom: 1.5rem;
 }
 
 input[type="text"] {
-  flex: 1;
+  width: 100%;
+  box-sizing: border-box;
+
   padding: 0.8rem 1rem;
+  padding-right: 90px;
   border-radius: 8px;
   border: 1px solid rgba(255, 255, 255, 0.2);
   background: rgba(0, 0, 0, 0.2);
@@ -97,31 +103,126 @@ button:active {
   transform: translateY(0);
 }
 
+#set-btn {
+  position: absolute;
+  right: 6px;
+  top: 6px;
+  bottom: 6px;
+  padding: 0 1.2em;
+  height: auto;
+  font-size: 0.9em;
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  z-index: 10;
+}
+
+#set-btn:hover {
+  background-color: #646cff;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
 .view-options {
   display: flex;
-  justify-content: flex-start;
-  gap: 2rem;
-  margin-top: 1rem;
+  position: relative;
+  /* Context for absolute slider */
+  gap: 0;
+  /* Remove gap so slider math is easier */
+  margin-top: 0.5rem;
+  background: rgba(0, 0, 0, 0.3);
+  /* slightly darker well */
+  padding: 4px;
+  /* Internal padding for "well" look */
+  border-radius: 10px;
+  isolation: isolate;
+  /* Create stacking context */
 }
 
-.radio-label {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
+.option-btn {
+  flex: 1;
+  text-align: center;
+  padding: 0.5rem;
+  border-radius: 8px;
   cursor: pointer;
-  font-weight: 500;
-  user-select: none;
+  font-weight: 600;
+  font-size: 0.9em;
+  transition: all 0.2s ease;
+  color: rgba(255, 255, 255, 0.6);
+  border: 1px solid transparent;
+  z-index: 2;
+  /* Content above slider */
+  position: relative;
 }
 
-.radio-label input {
-  accent-color: #646cff;
-  width: 1.2em;
-  height: 1.2em;
+.option-btn:hover {
+  color: white;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* Slider Logic */
+.slider {
+  position: absolute;
+  top: 4px;
+  /* match padding of container */
+  bottom: 4px;
+  left: 4px;
+  width: calc(50% - 4px);
+  /* Rough calculation for 2 items */
+  background: #646cff;
+  border-radius: 6px;
+  transition: transform 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+  z-index: 1;
+}
+
+/* 
+   Since inputs are interleaved with labels, we need to be careful with selectors.
+   Actually, the HTML structure is Input, Label, Input, Label, Slider.
+   
+   If 1st input is checked:
+   input:nth-of-type(1):checked ~ .slider
+   
+   If 2nd input is checked:
+   input:nth-of-type(2):checked ~ .slider
+*/
+
+input:nth-of-type(1):checked~.slider {
+  transform: translateX(0);
+}
+
+input:nth-of-type(2):checked~.slider {
+  transform: translateX(100%);
+}
+
+/* Active Text Color */
+input:checked+.option-btn {
+  color: white;
+  /* background removed, handled by slider */
+  box-shadow: none;
+}
+
+input:focus-visible+.option-btn {
+  outline: 2px solid #646cff;
+  /* Fallback focus ring */
+  outline-offset: 2px;
 }
 
 @media (prefers-color-scheme: light) {
-  :root {
+
+  :root,
+  html {
     color: #213547;
+    background-color: #f5f7fa;
+    /* Fallback for overscroll matching in light mode */
     background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
   }
 
@@ -148,6 +249,34 @@ button:active {
     border-color: #646cff;
     background: white;
   }
+
+  .view-options {
+    background: rgba(0, 0, 0, 0.05);
+  }
+
+  .option-btn {
+    color: #4a5568;
+  }
+
+  .option-btn:hover {
+    background: rgba(0, 0, 0, 0.05);
+    color: #213547;
+  }
+
+  input:checked+.option-btn {
+    color: white;
+  }
+
+  #set-btn {
+    background-color: #646cff;
+    /* Make it solid blue in light mode so it's visible */
+    color: white;
+    border-color: #646cff;
+  }
+
+  #set-btn:hover {
+    background-color: #535bf2;
+  }
 }
 
 button.success {
@@ -173,14 +302,9 @@ button.success:hover {
     margin: 1rem auto;
   }
 
-  .view-options {
-    flex-direction: column;
-    gap: 1rem;
-  }
 
-  .input-group {
-    flex-direction: column;
-  }
+
+
 
   input[type="text"] {
     width: 100%;
@@ -189,5 +313,10 @@ button.success:hover {
 
   button {
     width: 100%;
+  }
+
+  /* Specific override for the set button to not be full width */
+  #set-btn {
+    width: auto;
   }
 }

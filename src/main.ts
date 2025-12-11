@@ -52,8 +52,8 @@ const CONCIERGE_FAB_CONFIG = {
 
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   <div>
-    <h1>Interactor Embed Test</h1>
-    <p>Find the floating Interactor button in the bottom right corner.</p>
+    <h1>Embed Your Interactor</h1>
+    <p>Play with the Interactor embed options below.</p>
     
     <div class="card">
       <label for="interactor-id" style="display: block; margin-bottom: 0.8rem; font-weight: 600; text-align: left;">Interactor ID</label>
@@ -64,30 +64,26 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
       </div>
       
       <div style="text-align: left; margin-bottom: 1.5rem;">
-        <label style="font-weight: 600; display: block; margin-bottom: 0.8rem;">View Type</label>
+          <label style="font-weight: 600; display: block; margin-bottom: 0.8rem;">View Type</label>
         <div class="view-options">
-          <label class="radio-label">
-            <input type="radio" name="view-type" value="sidebar" checked>
-            Sidebar
-          </label>
-          <label class="radio-label">
-            <input type="radio" name="view-type" value="mobile">
-            Pop Up
-          </label>
+          <input type="radio" id="view-sidebar" name="view-type" value="sidebar" class="sr-only" checked>
+          <label for="view-sidebar" class="option-btn">Sidebar</label>
+          
+          <input type="radio" id="view-mobile" name="view-type" value="mobile" class="sr-only">
+          <label for="view-mobile" class="option-btn">Pop Up</label>
+          <div class="slider"></div>
         </div>
       </div>
 
       <div style="text-align: left;">
         <label style="font-weight: 600; display: block; margin-bottom: 0.8rem;">Button Style</label>
         <div class="view-options">
-          <label class="radio-label">
-            <input type="radio" name="fab-style" value="concierge" checked>
-            Concierge
-          </label>
-          <label class="radio-label">
-            <input type="radio" name="fab-style" value="default">
-            Default
-          </label>
+          <input type="radio" id="style-concierge" name="fab-style" value="concierge" class="sr-only" checked>
+          <label for="style-concierge" class="option-btn">Concierge</label>
+          
+          <input type="radio" id="style-simple" name="fab-style" value="simple" class="sr-only">
+          <label for="style-simple" class="option-btn">Simple</label>
+          <div class="slider"></div>
         </div>
       </div>
 
@@ -102,7 +98,7 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   </div>
 `
 
-const initInteractor = (id: string, type: 'sidebar' | 'mobile', fabStyle: 'concierge' | 'default') => {
+const initInteractor = (id: string, type: 'sidebar' | 'mobile', fabStyle: 'concierge' | 'simple') => {
   if (window.interactor) {
     console.log(`Initializing interactor with ID: ${id}, Type: ${type}, Style: ${fabStyle}`);
 
@@ -120,6 +116,9 @@ const initInteractor = (id: string, type: 'sidebar' | 'mobile', fabStyle: 'conci
 
     if (fabStyle === 'concierge') {
       config.fabConfig = CONCIERGE_FAB_CONFIG;
+    } else {
+      // Explicitly set to empty object to overwrite/reset previous config
+      config.fabConfig = {};
     }
 
     window.interactor.initialize(id, config);
@@ -133,7 +132,7 @@ const getParams = () => {
   return {
     id: params.get('id') || DEFAULT_INTERACTOR_ID,
     type: (params.get('type') || 'sidebar') as 'sidebar' | 'mobile',
-    fabStyle: (params.get('fabStyle') || 'concierge') as 'concierge' | 'default',
+    fabStyle: (params.get('fabStyle') || 'concierge') as 'concierge' | 'simple',
     success: params.get('success') === 'true'
   };
 };
@@ -218,7 +217,7 @@ const handleRadioChange = () => {
   if (idInput && typeInput && styleInput) {
     const id = idInput.value.trim();
     const type = typeInput.value as 'sidebar' | 'mobile';
-    const fabStyle = styleInput.value as 'concierge' | 'default';
+    const fabStyle = styleInput.value as 'concierge' | 'simple';
 
     updateUrl(id, type, fabStyle, false);
     initInteractor(id, type, fabStyle);
