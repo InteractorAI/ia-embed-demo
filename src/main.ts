@@ -8,47 +8,6 @@ declare global {
 
 const DEFAULT_INTERACTOR_ID = 'interactor';
 
-const CONCIERGE_FAB_CONFIG = {
-  messageBubble: {
-    align: 'center-without-tail',
-  },
-  wrapper: {
-    shape: 'circle',
-    animation: {
-      type: 'spin',
-      duration: 10000,
-    },
-    container: {
-      background: 'rgba(0, 0, 0, 1)',
-      size: 100,
-    },
-    ring: {
-      size: 22,
-      background: 'rgb(10, 10, 10)',
-      borders: {},
-      text: {
-        top: {
-          value: "• ‎ 24/7 AI CONCIERGE ‎ •",
-          fontSize: 12,
-          lineHeight: 20,
-          color: 'white',
-          fontWeight: 'bold',
-          fontFamily: 'Inter, sans-serif',
-          textLength: 137.5,
-        },
-        bottom: {
-          value: 'CHAT NOW',
-          fontSize: 12,
-          lineHeight: 20,
-          color: 'white',
-          fontWeight: 'bold',
-          fontFamily: 'Inter, sans-serif',
-          textLength: 65,
-        },
-      }
-    },
-  },
-};
 
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   <div>
@@ -78,11 +37,11 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
       <div style="text-align: left;">
         <label style="font-weight: 600; display: block; margin-bottom: 0.8rem;">Button Style</label>
         <div class="view-options">
-          <input type="radio" id="style-concierge" name="fab-style" value="concierge" class="sr-only" checked>
-          <label for="style-concierge" class="option-btn">Concierge</label>
-          
           <input type="radio" id="style-simple" name="fab-style" value="simple" class="sr-only">
           <label for="style-simple" class="option-btn">Simple</label>
+
+          <input type="radio" id="style-concierge" name="fab-style" value="concierge" class="sr-only" checked>
+          <label for="style-concierge" class="option-btn">Concierge</label>
           <div class="slider"></div>
         </div>
       </div>
@@ -95,10 +54,109 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
         </div>
       </div>
     </div>
+    </div>
+  </div>
+
+  <div class="card docs-card">
+    <div style="background: rgba(255,255,255,0.05); padding: 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.1);">
+      <h2 style="margin: 0; font-size: 1.5rem;">Interactor Embed Guide</h2>
+    </div>
+    <div class="docs-content">
+      <div class="step">
+        <div class="step-number">1</div>
+        <h3>Add Interactor to your site</h3>
+        <p>Add these two lines to your HTML (usually in <code>&lt;head&gt;</code> or before <code>&lt;/body&gt;</code>):</p>
+        <div class="code-wrapper">
+          <button class="copy-btn">Copy</button>
+          <div class="code-block">
+&lt;<span class="code-tag">script</span> <span class="code-attr">src</span>=<span class="code-string">"https://embed.interactor.ai/assets/index.js"</span>&gt;&lt;/<span class="code-tag">script</span>&gt;<br>
+&lt;<span class="code-tag">link</span> <span class="code-attr">rel</span>=<span class="code-string">"stylesheet"</span> <span class="code-attr">href</span>=<span class="code-string">"https://embed.interactor.ai/assets/index.css"</span> /&gt;
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-number">2</div>
+        <h3>Initialize Interactor</h3>
+        <p>Replace <code class="dynamic-id-display">YOUR_INTERACTOR_ID</code> with your Interactor ID:</p>
+        <div class="code-wrapper">
+          <button class="copy-btn">Copy</button>
+          <div class="code-block">
+&lt;<span class="code-tag">script</span>&gt;<br>
+&nbsp;&nbsp;<span class="code-keyword">window</span>.addEventListener(<span class="code-string">'load'</span>, () => {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">window</span>.interactor.initialize(<span class="code-string">'<span class="dynamic-id-code">${DEFAULT_INTERACTOR_ID}</span>'</span>, {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;type: <span class="code-string">'sidebar'</span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;isOpen: <span class="code-keyword">false</span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;isFabVisible: <span class="code-keyword">true</span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;})<br>
+&nbsp;&nbsp;})<br>
+&lt;/<span class="code-tag">script</span>&gt;
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-number">3</div>
+        <h3>Optional: Use the concierge-style chat button</h3>
+        <p>You can choose a more animated concierge-style chat button.</p>
+        <div class="code-wrapper">
+          <button class="copy-btn">Copy</button>
+          <div class="code-block">
+&lt;<span class="code-tag">script</span>&gt;<br>
+&nbsp;&nbsp;<span class="code-keyword">window</span>.addEventListener(<span class="code-string">'load'</span>, () => {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">window</span>.interactor.initialize(<span class="code-string">'<span class="dynamic-id-code">${DEFAULT_INTERACTOR_ID}</span>'</span>, {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;type: <span class="code-string">'sidebar'</span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;isOpen: <span class="code-keyword">false</span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;isFabVisible: <span class="code-keyword">true</span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fabConfig: <span class="code-keyword">window</span>.interactor.fabPresets.concierge,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;})<br>
+&nbsp;&nbsp;})<br>
+&lt;/<span class="code-tag">script</span>&gt;
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-number">4</div>
+        <h3>Open chat from your own button (optional)</h3>
+        <p>You can open Interactor from any custom button on your site:</p>
+        <div class="code-wrapper">
+          <button class="copy-btn">Copy</button>
+          <div class="code-block">
+&lt;<span class="code-tag">button</span> <span class="code-attr">onclick</span>=<span class="code-string">"window.interactor.modal.open()"</span>&gt;Chat Now&lt;/<span class="code-tag">button</span>&gt;
+          </div>
+        </div>
+      </div>
+      
+      <div class="step">
+        <div class="step-number">5</div>
+        <h3>Send a message into Interactor</h3>
+        <p>You can send a message into the chat programmatically from your site:</p>
+        <div class="code-wrapper">
+          <button class="copy-btn">Copy</button>
+          <div class="code-block">
+<span class="code-keyword">window</span>.interactor.message.send(<span class="code-string">"I'd like to schedule a call"</span>)
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 `
 
+
+const updateCodeSnippets = (id: string) => {
+  document.querySelectorAll('.dynamic-id-display').forEach(el => {
+    el.textContent = id;
+  });
+  document.querySelectorAll('.dynamic-id-code').forEach(el => {
+    el.textContent = id;
+  });
+};
+
 const initInteractor = (id: string, type: 'sidebar' | 'mobile', fabStyle: 'concierge' | 'simple') => {
+  // Update docs whenever we init a new ID
+  updateCodeSnippets(id);
+
   if (window.interactor) {
     console.log(`Initializing interactor with ID: ${id}, Type: ${type}, Style: ${fabStyle}`);
 
@@ -114,11 +172,16 @@ const initInteractor = (id: string, type: 'sidebar' | 'mobile', fabStyle: 'conci
       },
     };
 
-    if (fabStyle === 'concierge') {
-      config.fabConfig = CONCIERGE_FAB_CONFIG;
-    } else {
-      // Explicitly set to empty object to overwrite/reset previous config
-      config.fabConfig = {};
+    if (fabStyle === 'concierge' && window.interactor.fabPresets) {
+      config.fabConfig = window.interactor.fabPresets.concierge;
+    } else if (fabStyle === 'concierge' && !window.interactor.fabPresets) {
+      console.warn('Interactor fabPresets not found, falling back to default');
+    }
+    // For 'simple' style, we explicitly do not set fabConfig, or set it to undefined if needed.
+    // Assuming a fresh init or overwrite, omitting it or setting to null/undefined should work.
+    // We'll set it to undefined to be explicit about "no config".
+    else {
+      config.fabConfig = undefined;
     }
 
     window.interactor.initialize(id, config);
@@ -232,6 +295,33 @@ document.querySelectorAll('input[name="view-type"]').forEach(radio => {
 document.querySelectorAll('input[name="fab-style"]').forEach(radio => {
   radio.addEventListener('change', handleRadioChange);
 });
+
+// Copy Button Logic
+document.querySelectorAll('.copy-btn').forEach(btn => {
+  btn.addEventListener('click', (e) => {
+    const target = e.target as HTMLButtonElement;
+    const codeBlock = target.nextElementSibling as HTMLElement;
+
+    if (codeBlock) {
+      // Decode entities for clean copy (e.g. &lt; to <)
+      const textToCopy = codeBlock.innerText;
+
+      navigator.clipboard.writeText(textToCopy).then(() => {
+        const originalText = target.innerText;
+        target.innerText = 'Copied!';
+        target.style.background = '#10b981';
+        target.style.color = 'white';
+
+        setTimeout(() => {
+          target.innerText = originalText;
+          target.style.background = ''; // reset to CSS default
+          target.style.color = '';
+        }, 2000);
+      });
+    }
+  });
+});
+
 
 // Custom Triggers Handlers
 // Custom Triggers Handlers

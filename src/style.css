@@ -1,3 +1,9 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 :root,
 html {
   font-family: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
@@ -49,9 +55,162 @@ h1 {
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 16px;
   padding: 2rem;
+  width: 100%;
   max-width: 500px;
   margin: 2rem auto;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+}
+
+.docs-card {
+  text-align: left;
+  width: 100%;
+  max-width: 800px;
+  margin: 4rem auto;
+  padding: 0;
+  overflow: hidden;
+}
+
+.docs-content {
+  padding: 2rem;
+}
+
+.step {
+  margin-bottom: 2.5rem;
+  position: relative;
+  padding-left: 2rem;
+}
+
+.step:last-child {
+  margin-bottom: 0;
+}
+
+.step-number {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1.5rem;
+  height: 1.5rem;
+  background: #646cff;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+.step h3 {
+  margin: 0 0 1rem 0;
+  font-size: 1.2rem;
+  color: white;
+}
+
+.step p {
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 1rem;
+  line-height: 1.6;
+}
+
+.code-wrapper {
+  position: relative;
+  margin-top: 0.5rem;
+}
+
+.code-block {
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 8px;
+  padding: 1rem;
+  padding-top: 2rem;
+  /* space for copy button */
+  overflow-x: auto;
+  white-space: pre;
+  /* force no wrap */
+  font-family: 'Menlo', 'Monaco', 'Courier New', monospace;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: #e2e8f0;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  margin: 0;
+}
+
+.copy-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  padding: 4px 10px;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.75rem;
+  font-weight: 500;
+  cursor: pointer;
+  z-index: 5;
+  transition: all 0.2s;
+  /* Always visible on mobile to aid discoverability */
+  opacity: 1;
+}
+
+@media (hover: hover) {
+
+  /* On pointer devices, fade it out until hover for cleanliness */
+  .copy-btn {
+    opacity: 0;
+  }
+
+  .code-wrapper:hover .copy-btn {
+    opacity: 1;
+  }
+}
+
+.copy-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: white;
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+
+
+.code-comment {
+  color: #6abb7a;
+}
+
+.code-tag {
+  color: #f687b3;
+}
+
+.code-attr {
+  color: #63b3ed;
+}
+
+.code-string {
+  color: #fc8181;
+}
+
+.code-keyword {
+  color: #b794f4;
+}
+
+.code-function {
+  color: #fbd38d;
+}
+
+@media (prefers-color-scheme: light) {
+  .step h3 {
+    color: #2d3748;
+  }
+
+  .step p {
+    color: #4a5568;
+  }
+
+  .code-block {
+    background: #1a202c;
+    /* Keep code dark even in light mode for contrast */
+    border-color: #2d3748;
+  }
 }
 
 .input-group {
@@ -288,6 +447,13 @@ button.success:hover {
   background-color: #059669;
 }
 
+
+@media (max-width: 900px) {
+  .docs-card {
+    margin: 2rem auto;
+  }
+}
+
 @media (max-width: 600px) {
   #app {
     padding: 1rem;
@@ -318,5 +484,20 @@ button.success:hover {
   /* Specific override for the set button to not be full width */
   #set-btn {
     width: auto;
+  }
+
+  /* Docs adjustments for mobile */
+  .docs-content {
+    padding: 1rem;
+  }
+
+  .step {
+    padding-left: 0;
+  }
+
+  .step-number {
+    position: relative;
+    margin-bottom: 0.5rem;
+    display: inline-flex;
   }
 }
