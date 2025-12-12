@@ -36,6 +36,14 @@ html {
   --code-bg: #111111;
   --code-border: #333333;
 
+  /* Code Syntax Highlighting - Dark Mode (Default) */
+  --code-comment: #6abb7a;
+  --code-tag: #f687b3;
+  --code-attr: #63b3ed;
+  --code-string: #fc8181;
+  --code-keyword: #b794f4;
+  --code-function: #fbd38d;
+
   color-scheme: dark;
   color: var(--text-color);
   background-color: var(--bg-color);
@@ -74,6 +82,20 @@ html.light-mode {
   --docs-text: #1a202c;
   --code-bg: #f7fafc;
   --code-border: #e2e8f0;
+
+  /* Code Syntax Highlighting - Light Mode overrides */
+  --code-comment: #2f855a;
+  /* Darker Green */
+  --code-tag: #b83280;
+  /* Darker Pink */
+  --code-attr: #2b6cb0;
+  /* Darker Blue */
+  --code-string: #c53030;
+  /* Darker Red */
+  --code-keyword: #6b46c1;
+  /* Darker Purple */
+  --code-function: #b7791f;
+  /* Darker Orange/Brown */
 }
 
 body {
@@ -252,27 +274,27 @@ h1 {
 
 
 .code-comment {
-  color: #6abb7a;
+  color: var(--code-comment);
 }
 
 .code-tag {
-  color: #f687b3;
+  color: var(--code-tag);
 }
 
 .code-attr {
-  color: #63b3ed;
+  color: var(--code-attr);
 }
 
 .code-string {
-  color: #fc8181;
+  color: var(--code-string);
 }
 
 .code-keyword {
-  color: #b794f4;
+  color: var(--code-keyword);
 }
 
 .code-function {
-  color: #fbd38d;
+  color: var(--code-function);
 }
 
 @media (prefers-color-scheme: light) {
