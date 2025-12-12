@@ -37,10 +37,10 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
       <div style="text-align: left;">
         <label style="font-weight: 600; display: block; margin-bottom: 0.8rem;">Button Style</label>
         <div class="view-options">
-          <input type="radio" id="style-simple" name="fab-style" value="simple" class="sr-only">
+          <input type="radio" id="style-simple" name="fab-style" value="simple" class="sr-only" checked>
           <label for="style-simple" class="option-btn">Simple</label>
 
-          <input type="radio" id="style-concierge" name="fab-style" value="concierge" class="sr-only" checked>
+          <input type="radio" id="style-concierge" name="fab-style" value="concierge" class="sr-only">
           <label for="style-concierge" class="option-btn">Concierge</label>
           <div class="slider"></div>
         </div>
@@ -195,7 +195,7 @@ const getParams = () => {
   return {
     id: params.get('id') || DEFAULT_INTERACTOR_ID,
     type: (params.get('type') || 'sidebar') as 'sidebar' | 'mobile',
-    fabStyle: (params.get('fabStyle') || 'concierge') as 'concierge' | 'simple',
+    fabStyle: (params.get('fabStyle') || 'simple') as 'concierge' | 'simple',
     success: params.get('success') === 'true'
   };
 };
