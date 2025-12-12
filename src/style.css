@@ -35,6 +35,7 @@ html {
   /* For the !important overrides */
   --code-bg: #111111;
   --code-border: #333333;
+  --code-text-color: #ededed;
 
   /* Code Syntax Highlighting - Dark Mode (Default) */
   --code-comment: #6abb7a;
@@ -76,26 +77,8 @@ html.light-mode {
   --btn-hover-bg: #e2e8f0;
 
   --docs-bg: #2d3748;
-  /* Dark background for code blocks/docs in light mode to keep contrast? Or invert? User wants readable. Let's keep docs card dark or invert it properly. The plan said "flip". */
-  /* Re-reading plan: I noted "--docs-header-color: #2d3748". But waiting, if I make the docs card white in light mode, the white text !important will disappear. */
-  /* Let's make the docs card light in light mode and flip the text to dark. */
   --docs-text: #1a202c;
-  --code-bg: #f7fafc;
-  --code-border: #e2e8f0;
-
-  /* Code Syntax Highlighting - Light Mode overrides */
-  --code-comment: #2f855a;
-  /* Darker Green */
-  --code-tag: #b83280;
-  /* Darker Pink */
-  --code-attr: #2b6cb0;
-  /* Darker Blue */
-  --code-string: #c53030;
-  /* Darker Red */
-  --code-keyword: #6b46c1;
-  /* Darker Purple */
-  --code-function: #b7791f;
-  /* Darker Orange/Brown */
+  /* Note: Code blocks remain dark in light mode for better contrast */
 }
 
 body {
@@ -229,7 +212,7 @@ h1 {
   font-family: 'Menlo', 'Monaco', 'Courier New', monospace;
   font-size: 0.85rem;
   line-height: 1.5;
-  color: var(--text-color);
+  color: var(--code-text-color);
   border: 1px solid var(--code-border);
   margin: 0;
 }
