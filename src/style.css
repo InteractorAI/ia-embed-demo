@@ -119,11 +119,11 @@ h1 {
 .step h3 {
   margin: 0 0 1rem 0;
   font-size: 1.2rem;
-  color: white;
+  color: #ffffff;
 }
 
 .step p {
-  color: #ccc;
+  color: #e0e0e0;
   margin-bottom: 1rem;
   line-height: 1.6;
 }
