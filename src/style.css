@@ -10,9 +10,35 @@ html {
   line-height: 1.5;
   font-weight: 400;
 
+  /* Theme Variables - Dark Mode (Default) */
+  --bg-color: #0a0a0a;
+  --text-color: #ededed;
+  --text-muted: #a8a8a8;
+  --heading-color: #ffffff;
+
+  --card-bg: #000000;
+  --card-border: #333333;
+
+  --input-bg: #111111;
+  --input-border: #333333;
+  --input-placeholder: #666666;
+
+  --btn-bg: #222222;
+  --btn-border: #333333;
+  --btn-hover-bg: #333333;
+
+  --accent-color: #646cff;
+  --accent-hover: #535bf2;
+
+  --docs-bg: #111111;
+  --docs-text: #ffffff;
+  /* For the !important overrides */
+  --code-bg: #111111;
+  --code-border: #333333;
+
   color-scheme: dark;
-  color: #ededed;
-  background-color: #0a0a0a;
+  color: var(--text-color);
+  background-color: var(--bg-color);
   background-image: none;
   background-attachment: fixed;
   background-size: 100% 100%;
@@ -21,6 +47,33 @@ html {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+html.light-mode {
+  color-scheme: light;
+  --bg-color: #f5f7fa;
+  --text-color: #2d3748;
+  --text-muted: #4a5568;
+  --heading-color: #1a202c;
+
+  --card-bg: #ffffff;
+  --card-border: #e2e8f0;
+
+  --input-bg: #ffffff;
+  --input-border: #cbd5e0;
+  --input-placeholder: #a0aec0;
+
+  --btn-bg: #edf2f7;
+  --btn-border: #cbd5e0;
+  --btn-hover-bg: #e2e8f0;
+
+  --docs-bg: #2d3748;
+  /* Dark background for code blocks/docs in light mode to keep contrast? Or invert? User wants readable. Let's keep docs card dark or invert it properly. The plan said "flip". */
+  /* Re-reading plan: I noted "--docs-header-color: #2d3748". But waiting, if I make the docs card white in light mode, the white text !important will disappear. */
+  /* Let's make the docs card light in light mode and flip the text to dark. */
+  --docs-text: #1a202c;
+  --code-bg: #f7fafc;
+  --code-border: #e2e8f0;
 }
 
 body {
@@ -35,7 +88,8 @@ h1 {
   font-size: 3.2em;
   line-height: 1.1;
   margin-bottom: 0.5em;
-  color: #ffffff;
+  margin-bottom: 0.5em;
+  color: var(--heading-color);
   background: none;
   text-shadow: none;
   font-weight: 700;
@@ -57,11 +111,11 @@ h1 {
 }
 
 .card {
-  background: #000;
+  background: var(--card-bg);
   backdrop-filter: none;
   -webkit-backdrop-filter: none;
-  border: 1px solid #333;
-  border-top: 1px solid #333;
+  border: 1px solid var(--card-border);
+  border-top: 1px solid var(--card-border);
   border-radius: 12px;
   padding: 2rem;
   width: 100%;
@@ -77,11 +131,11 @@ h1 {
   margin: 4rem auto;
   padding: 0;
   overflow: hidden;
-  background: #000;
+  background: var(--card-bg);
   backdrop-filter: none;
   -webkit-backdrop-filter: none;
-  border: 1px solid #333;
-  border-top: 1px solid #333;
+  border: 1px solid var(--card-border);
+  border-top: 1px solid var(--card-border);
   border-radius: 12px;
   box-shadow: none;
 }
@@ -117,23 +171,23 @@ h1 {
 }
 
 .docs-card h2 {
-  color: #ffffff !important;
+  color: var(--docs-text) !important;
 }
 
 .step h3 {
   margin: 0 0 1rem 0;
   font-size: 1.2rem;
-  color: #ffffff !important;
+  color: var(--docs-text) !important;
 }
 
 .step p {
-  color: #ffffff !important;
+  color: var(--docs-text) !important;
   margin-bottom: 1rem;
   line-height: 1.6;
 }
 
 .step code {
-  color: #ffffff;
+  color: var(--docs-text);
 }
 
 .code-wrapper {
@@ -142,7 +196,7 @@ h1 {
 }
 
 .code-block {
-  background: #111;
+  background: var(--code-bg);
   border-radius: 8px;
   padding: 1rem;
   padding-top: 2rem;
@@ -153,8 +207,8 @@ h1 {
   font-family: 'Menlo', 'Monaco', 'Courier New', monospace;
   font-size: 0.85rem;
   line-height: 1.5;
-  color: #ededed;
-  border: 1px solid #333;
+  color: var(--text-color);
+  border: 1px solid var(--code-border);
   margin: 0;
 }
 
@@ -163,11 +217,11 @@ h1 {
   top: 8px;
   right: 8px;
   padding: 4px 10px;
-  background: #222;
+  background: var(--btn-bg);
   backdrop-filter: none;
-  border: 1px solid #444;
+  border: 1px solid var(--btn-border);
   border-radius: 6px;
-  color: #ccc;
+  color: var(--text-muted);
   font-size: 0.75rem;
   font-weight: 500;
   cursor: pointer;
@@ -190,9 +244,9 @@ h1 {
 }
 
 .copy-btn:hover {
-  background: #333;
-  color: white;
-  border-color: #555;
+  background: var(--btn-hover-bg);
+  color: var(--text-color);
+  border-color: var(--input-border);
 }
 
 
@@ -250,22 +304,22 @@ input[type="text"] {
   padding: 0.8rem 1rem;
   padding-right: 90px;
   border-radius: 6px;
-  border: 1px solid #333;
-  background: #111;
-  color: #ededed;
+  border: 1px solid var(--input-border);
+  background: var(--input-bg);
+  color: var(--text-color);
   font-family: monospace;
   font-size: 1rem;
   transition: border-color 0.2s ease;
 }
 
 input[type="text"]::placeholder {
-  color: #666;
+  color: var(--input-placeholder);
 }
 
 input[type="text"]:focus {
   outline: none;
   border-color: #666;
-  background: #111;
+  background: var(--input-bg);
 }
 
 button {
@@ -275,14 +329,14 @@ button {
   font-size: 1em;
   font-weight: 600;
   font-family: inherit;
-  background-color: #646cff;
+  background-color: var(--accent-color);
   color: white;
   cursor: pointer;
   transition: all 0.25s;
 }
 
 button:hover {
-  background-color: #535bf2;
+  background-color: var(--accent-hover);
   transform: translateY(-1px);
 }
 
@@ -298,15 +352,15 @@ button:active {
   padding: 0 1.2em;
   height: auto;
   font-size: 0.9em;
-  background-color: #222;
-  border: 1px solid #333;
+  background-color: var(--btn-bg);
+  border: 1px solid var(--btn-border);
   z-index: 10;
-  color: #ededed;
+  color: var(--text-color);
 }
 
 #set-btn:hover {
-  background-color: #333;
-  border-color: #555;
+  background-color: var(--btn-hover-bg);
+  border-color: var(--input-border);
 }
 
 .sr-only {
@@ -328,12 +382,12 @@ button:active {
   gap: 0;
   /* Remove gap so slider math is easier */
   margin-top: 0.5rem;
-  background: #111;
+  background: var(--input-bg);
   /* slightly darker well */
   padding: 4px;
   /* Internal padding for "well" look */
   border-radius: 8px;
-  border: 1px solid #333;
+  border: 1px solid var(--input-border);
   isolation: isolate;
   /* Create stacking context */
   box-shadow: none;
@@ -348,14 +402,14 @@ button:active {
   font-weight: 600;
   font-size: 0.9em;
   transition: all 0.2s ease;
-  color: #a8a8a8;
+  color: var(--text-muted);
   border: 1px solid transparent;
   z-index: 2;
   position: relative;
 }
 
 .option-btn:hover {
-  color: #ededed;
+  color: var(--text-color);
   background: transparent;
 }
 
@@ -368,7 +422,7 @@ button:active {
   left: 4px;
   width: calc(50% - 4px);
   /* Rough calculation for 2 items */
-  background: #333;
+  background: var(--btn-hover-bg);
   border-radius: 6px;
   transition: transform 0.2s cubic-bezier(0.2, 0, 0, 1);
   z-index: 1;
@@ -396,13 +450,13 @@ input:nth-of-type(2):checked~.slider {
 
 /* Active Text Color */
 input:checked+.option-btn {
-  color: white;
+  color: var(--heading-color);
   /* background removed, handled by slider */
   box-shadow: none;
 }
 
 input:focus-visible+.option-btn {
-  outline: 2px solid #646cff;
+  outline: 2px solid var(--accent-color);
   /* Fallback focus ring */
   outline-offset: 2px;
 }

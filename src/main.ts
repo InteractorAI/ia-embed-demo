@@ -10,6 +10,11 @@ const DEFAULT_INTERACTOR_ID = 'interactor';
 
 
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
+  <div id="theme-toggle-container" style="position: absolute; top: 1rem; right: 1rem;">
+    <button id="theme-btn" style="background: transparent; border: none; font-size: 1.5rem; cursor: pointer; padding: 0.5rem; color: var(--text-color);">
+      <span id="theme-icon">☾</span>
+    </button>
+  </div>
   <div>
     <h1>Embed Your Interactor</h1>
     <p>Play with the Interactor embed options below.</p>
@@ -162,6 +167,7 @@ const initInteractor = (id: string, type: 'sidebar' | 'mobile', fabStyle: 'conci
 
     const config: any = {
       type: type,
+      theme: (document.documentElement.classList.contains('light-mode') ? 'light' : 'dark'),
       isOpen: false,
       isFabVisible: true,
       onOpen: (layout: any) => {
@@ -265,6 +271,43 @@ const handleSet = () => {
     updateUrl(idInput.value.trim(), typeInput.value, styleInput.value, true);
   }
 };
+
+// Theme Toggle Logic
+const toggleTheme = () => {
+  const isLight = document.documentElement.classList.toggle('light-mode');
+  localStorage.setItem('theme', isLight ? 'light' : 'dark');
+  updateThemeIcon(isLight);
+
+  // Re-init Interactor with new theme
+  const { id, type, fabStyle } = getParams();
+  initInteractor(id, type, fabStyle);
+};
+
+const updateThemeIcon = (isLight: boolean) => {
+  const icon = document.getElementById('theme-icon');
+  if (icon) {
+    icon.textContent = isLight ? '☾' : '☀'; // Moon for dark mode (to switch back), Sun for light mode? Wait.
+    // Usually: Sun icon implies "Switch to Light", Moon implies "Switch to Dark".
+    // If currently Dark (default), we show Sun. If Light, we show Moon.
+    icon.textContent = isLight ? '☾' : '☀';
+  }
+};
+
+window.addEventListener('load', () => {
+  const themeBtn = document.getElementById('theme-btn');
+  if (themeBtn) {
+    themeBtn.addEventListener('click', toggleTheme);
+  }
+
+  // Check saved theme
+  const savedTheme = localStorage.getItem('theme');
+  if (savedTheme === 'light') {
+    document.documentElement.classList.add('light-mode');
+    updateThemeIcon(true);
+  } else {
+    updateThemeIcon(false);
+  }
+});
 
 document.getElementById('set-btn')?.addEventListener('click', handleSet);
 document.getElementById('interactor-id')?.addEventListener('keypress', (e) => {
