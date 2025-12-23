@@ -352,7 +352,7 @@ document.querySelectorAll('input[name="fab-style"]').forEach(radio => {
 // Copy Button Logic
 document.querySelectorAll('.copy-btn').forEach(btn => {
   btn.addEventListener('click', (e) => {
-    const target = e.target as HTMLButtonElement;
+    const target = e.currentTarget as HTMLButtonElement;
     const codeBlock = target.nextElementSibling as HTMLElement;
 
     if (codeBlock) {
