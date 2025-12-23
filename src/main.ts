@@ -349,6 +349,32 @@ document.querySelectorAll('input[name="fab-style"]').forEach(radio => {
   radio.addEventListener('change', handleRadioChange);
 });
 
+// Helper for clipboard copying with fallback for non-secure contexts
+const copyToClipboard = (text: string): Promise<void> => {
+  if (navigator.clipboard && window.isSecureContext) {
+    return navigator.clipboard.writeText(text);
+  } else {
+    return new Promise((resolve, reject) => {
+      try {
+        const textArea = document.createElement("textarea");
+        textArea.value = text;
+        textArea.style.position = "fixed";
+        textArea.style.left = "-9999px";
+        textArea.style.top = "0";
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        const successful = document.execCommand('copy');
+        document.body.removeChild(textArea);
+        if (successful) resolve();
+        else reject(new Error('Copy failed'));
+      } catch (err) {
+        reject(err);
+      }
+    });
+  }
+};
+
 // Copy Button Logic
 document.querySelectorAll('.copy-btn').forEach(btn => {
   btn.addEventListener('click', (e) => {
@@ -356,10 +382,9 @@ document.querySelectorAll('.copy-btn').forEach(btn => {
     const codeBlock = target.nextElementSibling as HTMLElement;
 
     if (codeBlock) {
-      // Decode entities for clean copy (e.g. &lt; to <)
       const textToCopy = codeBlock.innerText;
 
-      navigator.clipboard.writeText(textToCopy).then(() => {
+      copyToClipboard(textToCopy).then(() => {
         // Success icon (Checkmark)
         target.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>`;
         target.style.color = '#10b981';
@@ -371,6 +396,8 @@ document.querySelectorAll('.copy-btn').forEach(btn => {
           target.style.color = '';
           target.style.borderColor = '';
         }, 2000);
+      }).catch(err => {
+        console.error('Failed to copy code:', err);
       });
     }
   });
