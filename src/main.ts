@@ -72,7 +72,9 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
         <h3>Add Interactor to your site</h3>
         <p>Add these two lines to your HTML (usually in <code>&lt;head&gt;</code> or before <code>&lt;/body&gt;</code>):</p>
         <div class="code-wrapper">
-          <button class="copy-btn">Copy</button>
+          <button class="copy-btn" title="Copy code">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+          </button>
           <div class="code-block">
 &lt;<span class="code-tag">script</span> <span class="code-attr">src</span>=<span class="code-string">"https://embed.interactor.ai/assets/index.js"</span>&gt;&lt;/<span class="code-tag">script</span>&gt;<br>
 &lt;<span class="code-tag">link</span> <span class="code-attr">rel</span>=<span class="code-string">"stylesheet"</span> <span class="code-attr">href</span>=<span class="code-string">"https://embed.interactor.ai/assets/index.css"</span> /&gt;
@@ -85,7 +87,9 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
         <h3>Initialize Interactor</h3>
         <p>Replace <code class="dynamic-id-display">YOUR_INTERACTOR_ID</code> with your Interactor ID:</p>
         <div class="code-wrapper">
-          <button class="copy-btn">Copy</button>
+          <button class="copy-btn" title="Copy code">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+          </button>
           <div class="code-block">
 &lt;<span class="code-tag">script</span>&gt;<br>
 &nbsp;&nbsp;<span class="code-keyword">window</span>.addEventListener(<span class="code-string">'load'</span>, () => {<br>
@@ -105,7 +109,9 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
         <h3>Optional: Use the concierge-style chat button</h3>
         <p>You can choose a more animated concierge-style chat button.</p>
         <div class="code-wrapper">
-          <button class="copy-btn">Copy</button>
+          <button class="copy-btn" title="Copy code">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+          </button>
           <div class="code-block">
 &lt;<span class="code-tag">script</span>&gt;<br>
 &nbsp;&nbsp;<span class="code-keyword">window</span>.addEventListener(<span class="code-string">'load'</span>, () => {<br>
@@ -126,7 +132,9 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
         <h3>Open chat from your own button (optional)</h3>
         <p>You can open Interactor from any custom button on your site:</p>
         <div class="code-wrapper">
-          <button class="copy-btn">Copy</button>
+          <button class="copy-btn" title="Copy code">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+          </button>
           <div class="code-block">
 &lt;<span class="code-tag">button</span> <span class="code-attr">onclick</span>=<span class="code-string">"window.interactor.modal.open()"</span>&gt;Chat Now&lt;/<span class="code-tag">button</span>&gt;
           </div>
@@ -138,7 +146,9 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
         <h3>Send a message into Interactor</h3>
         <p>You can send a message into the chat programmatically from your site:</p>
         <div class="code-wrapper">
-          <button class="copy-btn">Copy</button>
+          <button class="copy-btn" title="Copy code">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+          </button>
           <div class="code-block">
 <span class="code-keyword">window</span>.interactor.message.send(<span class="code-string">"I'd like to schedule a call"</span>)
           </div>
@@ -350,15 +360,16 @@ document.querySelectorAll('.copy-btn').forEach(btn => {
       const textToCopy = codeBlock.innerText;
 
       navigator.clipboard.writeText(textToCopy).then(() => {
-        const originalText = target.innerText;
-        target.innerText = 'Copied!';
-        target.style.background = '#10b981';
-        target.style.color = 'white';
+        // Success icon (Checkmark)
+        target.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>`;
+        target.style.color = '#10b981';
+        target.style.borderColor = '#10b981';
 
         setTimeout(() => {
-          target.innerText = originalText;
-          target.style.background = ''; // reset to CSS default
+          // Revert to Copy icon
+          target.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>`;
           target.style.color = '';
+          target.style.borderColor = '';
         }, 2000);
       });
     }
